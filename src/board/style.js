@@ -1,10 +1,10 @@
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core";
 
-const style = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
   wrapper: {
     height: "100vh",
     width: "100vw",
   },
 }));
 
-export default style;
+export default useStyles;
