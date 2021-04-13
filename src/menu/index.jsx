@@ -19,7 +19,7 @@ const Menu = (props) => {
     if (selectedColor && selectedBrushSize) {
       onOptionChange({ color: selectedColor, brushSize: selectedBrushSize });
     }
-  }, [selectedColor, selectedBrushSize]);
+  }, [selectedColor, selectedBrushSize, onOptionChange]);
 
   const toggleDrawer = () => {
     setIsDrawerOpen((s) => !s);
