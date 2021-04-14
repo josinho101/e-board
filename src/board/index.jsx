@@ -50,6 +50,7 @@ const Board = (props) => {
       <canvas
         ref={canvas}
         onMouseUp={onMouseUp}
+        onMouseOut={onMouseUp}
         onMouseDown={onMouseDown}
         onMouseMove={onMouseMove}
       />

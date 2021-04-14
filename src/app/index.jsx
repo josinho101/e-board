@@ -7,6 +7,7 @@ import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 const App = () => {
   const [drawOptions, setDrawOptions] = useState({});
   const [appTheme, setAppTheme] = useState(theme);
+  const [isDarkMode, setIsDarkMode] = useState(true);
 
   const onOptionChange = (options) => {
     if (
@@ -24,12 +25,17 @@ const App = () => {
         type: darkMode ? "dark" : "light",
       },
     });
+    setIsDarkMode(darkMode);
     setAppTheme(darkTheme);
   };
 
   return (
     <ThemeProvider theme={appTheme}>
-      <Menu onOptionChange={onOptionChange} onThemeToggle={onThemeToggle} />
+      <Menu
+        isDarkMode={isDarkMode}
+        onThemeToggle={onThemeToggle}
+        onOptionChange={onOptionChange}
+      />
       <Board options={drawOptions} />
     </ThemeProvider>
   );

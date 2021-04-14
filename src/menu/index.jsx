@@ -7,13 +7,22 @@ import { IconButton, Drawer, Switch } from "@material-ui/core";
 
 const Menu = (props) => {
   const classes = useStyles();
-  const { onOptionChange, onThemeToggle } = props;
+  const { onOptionChange, onThemeToggle, isDarkMode } = props;
+  const colors = isDarkMode
+    ? SETTINGS.DARK_MODE_COLORS
+    : SETTINGS.LIGHT_MODE_COLORS;
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [selectedColor, setSelectedColor] = useState(SETTINGS.COLORS[0]);
+  const [selectedColor, setSelectedColor] = useState(colors[0]);
   const [selectedBrushSize, setSelectedBrushSize] = useState(
     SETTINGS.BRUSHES[0]
   );
+
+  useEffect(() => {
+    if (colors.indexOf(selectedColor) === -1) {
+      setSelectedColor(colors[0]);
+    }
+  }, [isDarkMode]);
 
   useEffect(() => {
     if (selectedColor && selectedBrushSize) {
@@ -54,12 +63,16 @@ const Menu = (props) => {
         <div className={classes.drawer}>
           <div>
             Dark mode
-            <Switch defaultChecked color="primary" onChange={onThemeToggle} />
+            <Switch
+              color="primary"
+              checked={isDarkMode}
+              onChange={onThemeToggle}
+            />
           </div>
           <div>
             <span>Colors</span>
             <div className={classes.colorPaletteHolder}>
-              {SETTINGS.COLORS.map((color) => {
+              {colors.map((color) => {
                 return (
                   <IconButton
                     key={`color-key-${color}`}
