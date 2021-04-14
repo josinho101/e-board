@@ -7,7 +7,7 @@ import { IconButton, Drawer, Switch } from "@material-ui/core";
 
 const Menu = (props) => {
   const classes = useStyles();
-  const { onOptionChange } = props;
+  const { onOptionChange, onThemeToggle } = props;
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [selectedColor, setSelectedColor] = useState(SETTINGS.COLORS[0]);
@@ -54,7 +54,7 @@ const Menu = (props) => {
         <div className={classes.drawer}>
           <div>
             Dark mode
-            <Switch defaultChecked color="primary" />
+            <Switch defaultChecked color="primary" onChange={onThemeToggle} />
           </div>
           <div>
             <span>Colors</span>
