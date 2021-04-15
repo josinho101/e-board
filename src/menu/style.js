@@ -44,6 +44,22 @@ const useStyles = makeStyles((theme) => ({
     height: "4vh",
     width: "4vh",
   },
+  eraserWrapper: {
+    display: "flex",
+  },
+  eraserClider: {
+    marginTop: "6%",
+  },
+  clearBoard: {
+    width: "100%",
+    fontSize: 10,
+  },
+  themeToggleWrapper: {
+    display: "flex",
+  },
+  themeToggleLabel: {
+    marginTop: "6%",
+  },
 }));
 
 export default useStyles;

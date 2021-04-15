@@ -3,7 +3,15 @@ import useStyles from "./style";
 import { useState, useEffect } from "react";
 import { SETTINGS } from "../appsettings";
 import { Menu as MuiMenu } from "@material-ui/icons";
-import { IconButton, Drawer, Switch } from "@material-ui/core";
+import SvgIcon from "@material-ui/core/SvgIcon";
+import {
+  IconButton,
+  Drawer,
+  Switch,
+  Slider,
+  Button,
+  Typography,
+} from "@material-ui/core";
 
 const Menu = (props) => {
   const classes = useStyles();
@@ -22,6 +30,7 @@ const Menu = (props) => {
     if (colors.indexOf(selectedColor) === -1) {
       setSelectedColor(colors[0]);
     }
+    // eslint-disable-next-line
   }, [isDarkMode]);
 
   useEffect(() => {
@@ -40,6 +49,16 @@ const Menu = (props) => {
 
   const onBrushClick = (size) => {
     setSelectedBrushSize(size);
+  };
+
+  const onEraserClick = () => {};
+
+  const EraserIcon = () => {
+    return (
+      <SvgIcon>
+        <path d="M5.662 23l-5.369-5.365c-.195-.195-.293-.45-.293-.707 0-.256.098-.512.293-.707l14.929-14.928c.195-.194.451-.293.707-.293.255 0 .512.099.707.293l7.071 7.073c.196.195.293.451.293.708 0 .256-.097.511-.293.707l-11.216 11.219h5.514v2h-12.343zm3.657-2l-5.486-5.486-1.419 1.414 4.076 4.072h2.829zm6.605-17.581l-10.677 10.68 5.658 5.659 10.676-10.682-5.657-5.657z" />
+      </SvgIcon>
+    );
   };
 
   const renderBrush = (cssClass, brushSize) => {
@@ -61,8 +80,10 @@ const Menu = (props) => {
     <div className={classes.iconHolder}>
       <Drawer anchor="right" open={isDrawerOpen} onClose={toggleDrawer}>
         <div className={classes.drawer}>
-          <div>
-            Dark mode
+          <div className={classes.themeToggleWrapper}>
+            <Typography className={classes.themeToggleLabel}>
+              Dark mode
+            </Typography>
             <Switch
               color="primary"
               checked={isDarkMode}
@@ -70,7 +91,7 @@ const Menu = (props) => {
             />
           </div>
           <div>
-            <span>Colors</span>
+            <Typography>Colors</Typography>
             <div className={classes.colorPaletteHolder}>
               {colors.map((color) => {
                 return (
@@ -91,13 +112,38 @@ const Menu = (props) => {
             </div>
           </div>
           <div>
-            <span>Brush size</span>
+            <Typography>Brush size</Typography>
             <div className={classes.brushHolder}>
               {renderBrush(classes.diaSmall, SETTINGS.BRUSHES[0])}
               {renderBrush(classes.diaMedium, SETTINGS.BRUSHES[1])}
               {renderBrush(classes.diaLarge, SETTINGS.BRUSHES[2])}
               {renderBrush(classes.diaXLarge, SETTINGS.BRUSHES[3])}
             </div>
+          </div>
+          <div>
+            <Typography>Eraser</Typography>
+            <div className={classes.eraserWrapper}>
+              <IconButton aria-label="menu" onClick={onEraserClick}>
+                <EraserIcon />
+              </IconButton>
+              <Slider
+                min={1}
+                max={10}
+                step={1}
+                defaultValue={5}
+                valueLabelDisplay="auto"
+                aria-labelledby="eraser-slider"
+                className={classes.eraserClider}
+              />
+            </div>
+            <Button
+              size="small"
+              color="primary"
+              variant="outlined"
+              className={classes.clearBoard}
+            >
+              Clear Board
+            </Button>
           </div>
         </div>
       </Drawer>

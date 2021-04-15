@@ -1,12 +1,11 @@
 import Menu from "../menu";
 import Board from "../board";
-import { theme } from "../theme";
 import { useState } from "react";
+import { darkTheme, lightTheme } from "../theme";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
 const App = () => {
   const [drawOptions, setDrawOptions] = useState({});
-  const [appTheme, setAppTheme] = useState(theme);
   const [isDarkMode, setIsDarkMode] = useState(true);
 
   const onOptionChange = (options) => {
@@ -19,18 +18,14 @@ const App = () => {
   };
 
   const onThemeToggle = (e, darkMode) => {
-    const darkTheme = createMuiTheme({
-      ...appTheme,
-      palette: {
-        type: darkMode ? "dark" : "light",
-      },
-    });
     setIsDarkMode(darkMode);
-    setAppTheme(darkTheme);
   };
 
+  let theme = isDarkMode ? darkTheme : lightTheme;
+  theme = createMuiTheme(theme);
+
   return (
-    <ThemeProvider theme={appTheme}>
+    <ThemeProvider theme={theme}>
       <Menu
         isDarkMode={isDarkMode}
         onThemeToggle={onThemeToggle}
