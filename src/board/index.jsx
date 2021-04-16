@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 
 const Board = (props) => {
   const classes = useStyles();
-  const { options } = props;
+  const { options, lastCleared } = props;
 
   const canvas = useRef();
   const context = useRef();
@@ -25,6 +25,11 @@ const Board = (props) => {
       context.current.lineWidth = options.brushSize;
     }
   }, [options]);
+
+  useEffect(() => {
+    const { width, height } = canvas.current;
+    context.current.clearRect(0, 0, width, height);
+  }, [lastCleared]);
 
   const onMouseMove = (e) => {
     const { offsetX, offsetY } = e.nativeEvent;

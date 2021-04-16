@@ -7,6 +7,11 @@ import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 const App = () => {
   const [drawOptions, setDrawOptions] = useState({});
   const [isDarkMode, setIsDarkMode] = useState(true);
+  const [boardLastCleared, setBoardLastCleared] = useState(Date.now());
+
+  const onClearClick = () => {
+    setBoardLastCleared(Date.now());
+  };
 
   const onOptionChange = (options) => {
     if (
@@ -30,8 +35,9 @@ const App = () => {
         isDarkMode={isDarkMode}
         onThemeToggle={onThemeToggle}
         onOptionChange={onOptionChange}
+        onClearClick={onClearClick}
       />
-      <Board options={drawOptions} />
+      <Board options={drawOptions} lastCleared={boardLastCleared} />
     </ThemeProvider>
   );
 };

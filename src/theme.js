@@ -9,7 +9,6 @@ export const darkTheme = createMuiTheme({
   },
   typography: {
     fontSize: 10,
-    fontWeight: "100",
   },
 });
 

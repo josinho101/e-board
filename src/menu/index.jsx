@@ -15,7 +15,7 @@ import {
 
 const Menu = (props) => {
   const classes = useStyles();
-  const { onOptionChange, onThemeToggle, isDarkMode } = props;
+  const { onOptionChange, onThemeToggle, isDarkMode, onClearClick } = props;
   const colors = isDarkMode
     ? SETTINGS.DARK_MODE_COLORS
     : SETTINGS.LIGHT_MODE_COLORS;
@@ -140,6 +140,7 @@ const Menu = (props) => {
               size="small"
               color="primary"
               variant="outlined"
+              onClick={onClearClick}
               className={classes.clearBoard}
             >
               Clear Board
