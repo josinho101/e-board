@@ -16,12 +16,13 @@ import {
 const Menu = (props) => {
   const classes = useStyles();
   const { onOptionChange, onThemeToggle, isDarkMode, onClearClick } = props;
-  const colors = isDarkMode
-    ? SETTINGS.DARK_MODE_COLORS
-    : SETTINGS.LIGHT_MODE_COLORS;
+  const eraserDefaultSize = 5;
+  const colors = isDarkMode ? SETTINGS.COLORS.DARK : SETTINGS.COLORS.LIGHT;
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [selectedColor, setSelectedColor] = useState(colors[0]);
+  const [eraserSelected, setEraserSelected] = useState(false);
+  const [eraserSize, setEraserSize] = useState(eraserDefaultSize);
   const [selectedBrushSize, setSelectedBrushSize] = useState(
     SETTINGS.BRUSHES[0]
   );
@@ -35,9 +36,20 @@ const Menu = (props) => {
 
   useEffect(() => {
     if (selectedColor && selectedBrushSize) {
-      onOptionChange({ color: selectedColor, brushSize: selectedBrushSize });
+      onOptionChange({
+        color: selectedColor,
+        brushSize: selectedBrushSize,
+        eraserSize: eraserSize,
+        eraserSelected: eraserSelected,
+      });
     }
-  }, [selectedColor, selectedBrushSize, onOptionChange]);
+  }, [
+    selectedColor,
+    selectedBrushSize,
+    onOptionChange,
+    eraserSize,
+    eraserSelected,
+  ]);
 
   const toggleDrawer = () => {
     setIsDrawerOpen((s) => !s);
@@ -51,7 +63,9 @@ const Menu = (props) => {
     setSelectedBrushSize(size);
   };
 
-  const onEraserClick = () => {};
+  const onEraserClick = () => {
+    setEraserSelected((s) => !s);
+  };
 
   const EraserIcon = () => {
     return (
@@ -123,17 +137,21 @@ const Menu = (props) => {
           <div>
             <Typography>Eraser</Typography>
             <div className={classes.eraserWrapper}>
-              <IconButton aria-label="menu" onClick={onEraserClick}>
-                <EraserIcon />
+              <IconButton
+                aria-label="menu"
+                onClick={onEraserClick}
+                className={eraserSelected && classes.eraserSelected}
+              >
+                <EraserIcon fontSize="sm" />
               </IconButton>
               <Slider
                 min={1}
                 max={10}
                 step={1}
-                defaultValue={5}
+                defaultValue={eraserDefaultSize}
                 valueLabelDisplay="auto"
                 aria-labelledby="eraser-slider"
-                className={classes.eraserClider}
+                className={classes.eraserSlider}
               />
             </div>
             <Button

@@ -1,6 +1,6 @@
 import Menu from "../menu";
 import Board from "../board";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { darkTheme, lightTheme } from "../theme";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
@@ -13,14 +13,15 @@ const App = () => {
     setBoardLastCleared(Date.now());
   };
 
-  const onOptionChange = (options) => {
+  const onOptionChange = useCallback((options) => {
     if (
       drawOptions.color !== options.color ||
-      drawOptions.brushSize !== options.brushSize
+      drawOptions.brushSize !== options.brushSize ||
+      drawOptions.eraserSelected !== options.eraserSelected
     ) {
       setDrawOptions(options);
     }
-  };
+  }, []);
 
   const onThemeToggle = (e, darkMode) => {
     setIsDarkMode(darkMode);
@@ -33,9 +34,9 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <Menu
         isDarkMode={isDarkMode}
+        onClearClick={onClearClick}
         onThemeToggle={onThemeToggle}
         onOptionChange={onOptionChange}
-        onClearClick={onClearClick}
       />
       <Board options={drawOptions} lastCleared={boardLastCleared} />
     </ThemeProvider>

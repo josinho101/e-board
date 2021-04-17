@@ -47,18 +47,23 @@ const useStyles = makeStyles((theme) => ({
   eraserWrapper: {
     display: "flex",
   },
-  eraserClider: {
-    marginTop: "6%",
+  eraserSlider: {
+    marginTop: "4%",
+    marginLeft: "3%",
   },
   clearBoard: {
     width: "100%",
     fontSize: 10,
+    marginTop: theme.spacing(1),
   },
   themeToggleWrapper: {
     display: "flex",
   },
   themeToggleLabel: {
     marginTop: "6%",
+  },
+  eraserSelected: {
+    backgroundColor: "#FFFFFF5C",
   },
 }));
 

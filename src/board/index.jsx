@@ -35,8 +35,13 @@ const Board = (props) => {
     const { offsetX, offsetY } = e.nativeEvent;
     mouse.current = { x: offsetX, y: offsetY };
     if (doDraw.current) {
-      context.current.lineTo(mouse.current.x, mouse.current.y);
-      context.current.stroke();
+      if (options.eraserSelected) {
+        const size = options.eraserSize;
+        context.current.clearRect(mouse.current.x, mouse.current.y, size, size);
+      } else {
+        context.current.lineTo(mouse.current.x, mouse.current.y);
+        context.current.stroke();
+      }
     }
   };
 
