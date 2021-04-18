@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "6%",
   },
   eraserSelected: {
-    backgroundColor: "#FFFFFF5C",
+    backgroundColor: theme.selection.iconButton,
   },
 }));
 

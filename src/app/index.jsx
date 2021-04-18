@@ -1,6 +1,7 @@
 import Menu from "../menu";
 import Board from "../board";
 import { useState, useCallback } from "react";
+import IconDefinitions from "../icondefinitions";
 import { darkTheme, lightTheme } from "../theme";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
@@ -32,6 +33,7 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
+      <IconDefinitions />
       <Menu
         isDarkMode={isDarkMode}
         onClearClick={onClearClick}

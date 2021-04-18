@@ -10,6 +10,9 @@ export const darkTheme = createMuiTheme({
   typography: {
     fontSize: 10,
   },
+  selection: {
+    iconButton: "#FF98005C",
+  },
 });
 
 export const lightTheme = createMuiTheme({
@@ -18,5 +21,8 @@ export const lightTheme = createMuiTheme({
   },
   typography: {
     fontSize: 10,
+  },
+  selection: {
+    iconButton: "#3F51B55C",
   },
 });

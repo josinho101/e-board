@@ -57,10 +57,12 @@ const Menu = (props) => {
 
   const onColorClick = (color) => {
     setSelectedColor(color);
+    setEraserSelected(false);
   };
 
   const onBrushClick = (size) => {
     setSelectedBrushSize(size);
+    setEraserSelected(false);
   };
 
   const onEraserClick = () => {
@@ -76,18 +78,43 @@ const Menu = (props) => {
   };
 
   const renderBrush = (cssClass, brushSize) => {
+    let selectedClass = undefined;
+    if (!eraserSelected && selectedBrushSize === brushSize) {
+      selectedClass = classes.selectedCircle;
+    }
     return (
       <IconButton onClick={() => onBrushClick(brushSize)}>
         <span
           style={{ backgroundColor: selectedColor }}
-          className={clsx(
-            cssClass,
-            classes.circle,
-            selectedBrushSize === brushSize ? classes.selectedCircle : undefined
-          )}
+          className={clsx(cssClass, classes.circle, selectedClass)}
         />
       </IconButton>
     );
+  };
+
+  const onEraserChangeSize = (e, value) => {
+    setEraserSize(value);
+  };
+
+  const renderColorPalettes = (colors) => {
+    return colors.map((color) => {
+      let selectedClass = undefined;
+      if (!eraserSelected && selectedColor === color) {
+        selectedClass = classes.colorPaletteSelected;
+      }
+
+      return (
+        <IconButton
+          key={`color-key-${color}`}
+          onClick={() => onColorClick(color)}
+        >
+          <span
+            className={clsx(classes.colorPalette, selectedClass)}
+            style={{ backgroundColor: color }}
+          />
+        </IconButton>
+      );
+    });
   };
 
   return (
@@ -107,22 +134,7 @@ const Menu = (props) => {
           <div>
             <Typography>Colors</Typography>
             <div className={classes.colorPaletteHolder}>
-              {colors.map((color) => {
-                return (
-                  <IconButton
-                    key={`color-key-${color}`}
-                    onClick={() => onColorClick(color)}
-                  >
-                    <span
-                      className={clsx(
-                        classes.colorPalette,
-                        selectedColor === color && classes.colorPaletteSelected
-                      )}
-                      style={{ backgroundColor: color }}
-                    />
-                  </IconButton>
-                );
-              })}
+              {renderColorPalettes(colors)}
             </div>
           </div>
           <div>
@@ -148,8 +160,9 @@ const Menu = (props) => {
                 min={1}
                 max={10}
                 step={1}
-                defaultValue={eraserDefaultSize}
+                value={eraserSize}
                 valueLabelDisplay="auto"
+                onChange={onEraserChangeSize}
                 aria-labelledby="eraser-slider"
                 className={classes.eraserSlider}
               />

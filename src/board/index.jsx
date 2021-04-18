@@ -1,3 +1,4 @@
+import Cursor from "../cursor";
 import useStyles from "./style";
 import Paper from "@material-ui/core/Paper";
 import { useEffect, useRef } from "react";
@@ -45,6 +46,20 @@ const Board = (props) => {
     }
   };
 
+  const onCursorMove = (x, y) => {
+    mouse.current = { x, y };
+    if (doDraw.current) {
+      console.log(x, y);
+      if (options.eraserSelected) {
+        const size = options.eraserSize;
+        context.current.clearRect(mouse.current.x, mouse.current.y, size, size);
+      } else {
+        context.current.lineTo(mouse.current.x, mouse.current.y);
+        context.current.stroke();
+      }
+    }
+  };
+
   const onMouseDown = () => {
     context.current.beginPath();
     context.current.moveTo(mouse.current.x, mouse.current.y);
@@ -56,7 +71,12 @@ const Board = (props) => {
   };
 
   return (
-    <Paper className={classes.wrapper}>
+    <Paper classes={{ root: classes.wrapper }}>
+      {/* <Cursor
+        onCursorMove={onCursorMove}
+        onCursorMouseUp={onMouseUp}
+        onCursorMouseDown={onMouseDown}
+      /> */}
       <canvas
         ref={canvas}
         onMouseUp={onMouseUp}
