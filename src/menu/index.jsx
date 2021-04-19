@@ -152,7 +152,7 @@ const Menu = (props) => {
               <IconButton
                 aria-label="menu"
                 onClick={onEraserClick}
-                className={eraserSelected && classes.eraserSelected}
+                className={clsx(eraserSelected && classes.eraserSelected)}
               >
                 <EraserIcon fontSize="sm" />
               </IconButton>

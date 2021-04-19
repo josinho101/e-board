@@ -49,7 +49,6 @@ const Board = (props) => {
   const onCursorMove = (x, y) => {
     mouse.current = { x, y };
     if (doDraw.current) {
-      console.log(x, y);
       if (options.eraserSelected) {
         const size = options.eraserSize;
         context.current.clearRect(mouse.current.x, mouse.current.y, size, size);
@@ -79,8 +78,8 @@ const Board = (props) => {
       /> */}
       <canvas
         ref={canvas}
-        onMouseUp={onMouseUp}
         onMouseOut={onMouseUp}
+        onMouseUp={onMouseUp}
         onMouseDown={onMouseDown}
         onMouseMove={onMouseMove}
       />

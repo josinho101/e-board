@@ -3,6 +3,7 @@ import Board from "../board";
 import { useState, useCallback } from "react";
 import IconDefinitions from "../icondefinitions";
 import { darkTheme, lightTheme } from "../theme";
+import CssBaseline from "@material-ui/core/CssBaseline";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
 const App = () => {
@@ -33,6 +34,7 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       <IconDefinitions />
       <Menu
         isDarkMode={isDarkMode}

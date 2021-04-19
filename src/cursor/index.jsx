@@ -5,6 +5,7 @@ const Cursor = (props) => {
   const classes = useStyles();
   const { onCursorMove, onCursorMouseUp, onCursorMouseDown } = props;
   const [position, setPosition] = useState({ x: -50, y: -50 });
+  const cursorSize = 5;
 
   useEffect(() => {
     document.addEventListener("mouseup", onMouseUp, false);
@@ -31,11 +32,14 @@ const Cursor = (props) => {
     onCursorMove(clientX, clientY);
   };
 
+  const left = position.x - cursorSize / 2;
+  const top = position.y - cursorSize / 2;
+
   return (
     <svg
       viewBox="0 0 16 16"
       className={classes.root}
-      style={{ left: position.x, top: position.y }}
+      style={{ left: left, top: top, width: cursorSize, height: cursorSize }}
     >
       <use href="#brush" />
     </svg>

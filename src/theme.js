@@ -13,6 +13,15 @@ export const darkTheme = createMuiTheme({
   selection: {
     iconButton: "#FF98005C",
   },
+  overrides: {
+    MuiCssBaseline: {
+      "@global": {
+        body: {
+          overflow: "hidden",
+        },
+      },
+    },
+  },
 });
 
 export const lightTheme = createMuiTheme({
@@ -24,5 +33,14 @@ export const lightTheme = createMuiTheme({
   },
   selection: {
     iconButton: "#3F51B55C",
+  },
+  overrides: {
+    MuiCssBaseline: {
+      "@global": {
+        body: {
+          overflow: "hidden",
+        },
+      },
+    },
   },
 });
