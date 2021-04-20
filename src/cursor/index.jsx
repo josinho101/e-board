@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 const Cursor = (props) => {
   const classes = useStyles();
-  const { onCursorMove, onCursorMouseUp, onCursorMouseDown } = props;
+  const { onCursorMove, onCursorMouseUp, onCursorMouseDown, color } = props;
   const [position, setPosition] = useState({ x: -50, y: -50 });
   const cursorSize = 5;
 
@@ -39,7 +39,13 @@ const Cursor = (props) => {
     <svg
       viewBox="0 0 16 16"
       className={classes.root}
-      style={{ left: left, top: top, width: cursorSize, height: cursorSize }}
+      style={{
+        fill: color,
+        left: left,
+        top: top,
+        width: cursorSize,
+        height: cursorSize,
+      }}
     >
       <use href="#brush" />
     </svg>

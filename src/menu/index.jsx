@@ -177,6 +177,27 @@ const Menu = (props) => {
               Clear Board
             </Button>
           </div>
+          <div>
+            <Typography>Shapes</Typography>
+            <div>
+              <IconButton
+                aria-label="menu"
+                classes={{ root: classes.shapeButton }}
+              >
+                <div className={classes.shapeWrapper}>
+                  <div className={classes.rectangle} />
+                </div>
+              </IconButton>
+              <IconButton
+                aria-label="menu"
+                classes={{ root: classes.shapeButton }}
+              >
+                <div className={classes.shapeWrapper}>
+                  <div className={classes.circle} />
+                </div>
+              </IconButton>
+            </div>
+          </div>
         </div>
       </Drawer>
       <IconButton aria-label="menu" onClick={toggleDrawer}>

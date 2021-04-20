@@ -1,7 +1,7 @@
 import Cursor from "../cursor";
 import useStyles from "./style";
 import Paper from "@material-ui/core/Paper";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const Board = (props) => {
   const classes = useStyles();
@@ -11,6 +11,7 @@ const Board = (props) => {
   const context = useRef();
   const mouse = useRef({ x: 0, y: 0 });
   const doDraw = useRef(false);
+  const [showCursor, setShowCursor] = useState(true);
 
   useEffect(() => {
     canvas.current.width = window.innerWidth;
@@ -72,6 +73,7 @@ const Board = (props) => {
   return (
     <Paper classes={{ root: classes.wrapper }}>
       {/* <Cursor
+        color={options.color}
         onCursorMove={onCursorMove}
         onCursorMouseUp={onMouseUp}
         onCursorMouseDown={onMouseDown}

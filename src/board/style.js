@@ -5,7 +5,10 @@ const useStyles = makeStyles((theme) => ({
     height: "100vh",
     width: "100vw",
     borderRadius: 0,
-    // cursor: "none",
+    cursor: "crosshair",
+  },
+  pointer: {
+    cursor: "pointer",
   },
 }));
 

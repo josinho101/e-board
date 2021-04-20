@@ -55,6 +55,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     fontSize: 10,
     marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(2),
   },
   themeToggleWrapper: {
     display: "flex",
@@ -64,6 +65,26 @@ const useStyles = makeStyles((theme) => ({
   },
   eraserSelected: {
     backgroundColor: theme.selection.iconButton,
+  },
+  shapeButton: {
+    padding: theme.spacing(1),
+  },
+  shapeWrapper: {
+    height: 30,
+    width: 30,
+    display: "flex",
+    alignItems: "center",
+  },
+  rectangle: {
+    height: 15,
+    width: 30,
+    backgroundColor: "white",
+  },
+  circle: {
+    height: 15,
+    width: 15,
+    backgroundColor: "white",
+    borderRadius: "50%",
   },
 }));
 
