@@ -12,6 +12,7 @@ export const darkTheme = createMuiTheme({
   },
   selection: {
     iconButton: "#FF98005C",
+    hover: "#fbfbfb1f",
   },
   overrides: {
     MuiCssBaseline: {
@@ -33,6 +34,7 @@ export const lightTheme = createMuiTheme({
   },
   selection: {
     iconButton: "#3F51B55C",
+    hover: "#0000001c",
   },
   overrides: {
     MuiCssBaseline: {

@@ -67,24 +67,32 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.selection.iconButton,
   },
   shapeButton: {
-    padding: theme.spacing(1),
+    padding: 4,
   },
   shapeWrapper: {
     height: 30,
-    width: 30,
+    width: 40,
     display: "flex",
     alignItems: "center",
+    placeContent: "center",
+    cursor: "pointer",
+    marginRight: 4,
+    "&:hover": {
+      backgroundColor: theme.selection.hover,
+    },
   },
-  rectangle: {
-    height: 15,
+  rectangleShape: {
+    height: 20,
     width: 30,
-    backgroundColor: "white",
   },
-  circle: {
-    height: 15,
-    width: 15,
-    backgroundColor: "white",
+  circleShape: {
+    height: 20,
+    width: 20,
     borderRadius: "50%",
+  },
+  shapeRoot: {
+    display: "flex",
+    marginBottom: theme.spacing(1),
   },
 }));
 

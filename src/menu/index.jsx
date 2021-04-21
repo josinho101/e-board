@@ -117,6 +117,72 @@ const Menu = (props) => {
     });
   };
 
+  const renderShapes = () => {
+    return (
+      <div className={classes.shapeRoot}>
+        <div className={classes.shapeWrapper}>
+          <div
+            className={classes.rectangleShape}
+            style={{ backgroundColor: selectedColor }}
+          />
+        </div>
+        <div className={classes.shapeWrapper}>
+          <div
+            className={classes.rectangleShape}
+            style={{ border: `1px solid ${selectedColor}` }}
+          />
+        </div>
+        <div className={classes.shapeWrapper}>
+          <div
+            className={classes.circleShape}
+            style={{ backgroundColor: selectedColor }}
+          />
+        </div>
+        <div className={classes.shapeWrapper}>
+          <div
+            className={classes.circleShape}
+            style={{ border: `1px solid ${selectedColor}` }}
+          />
+        </div>
+      </div>
+    );
+  };
+
+  const renderEraserOptions = () => {
+    return (
+      <>
+        <div className={classes.eraserWrapper}>
+          <IconButton
+            aria-label="menu"
+            onClick={onEraserClick}
+            className={clsx(eraserSelected && classes.eraserSelected)}
+          >
+            <EraserIcon fontSize="sm" />
+          </IconButton>
+          <Slider
+            min={1}
+            max={10}
+            step={1}
+            value={eraserSize}
+            valueLabelDisplay="auto"
+            onChange={onEraserChangeSize}
+            aria-labelledby="eraser-slider"
+            className={classes.eraserSlider}
+          />
+        </div>
+        <Button
+          size="small"
+          color="primary"
+          variant="outlined"
+          onClick={onClearClick}
+          className={classes.clearBoard}
+        >
+          Clear Board
+        </Button>
+      </>
+    );
+  };
+
   return (
     <div className={classes.iconHolder}>
       <Drawer anchor="right" open={isDrawerOpen} onClose={toggleDrawer}>
@@ -148,55 +214,11 @@ const Menu = (props) => {
           </div>
           <div>
             <Typography>Eraser</Typography>
-            <div className={classes.eraserWrapper}>
-              <IconButton
-                aria-label="menu"
-                onClick={onEraserClick}
-                className={clsx(eraserSelected && classes.eraserSelected)}
-              >
-                <EraserIcon fontSize="sm" />
-              </IconButton>
-              <Slider
-                min={1}
-                max={10}
-                step={1}
-                value={eraserSize}
-                valueLabelDisplay="auto"
-                onChange={onEraserChangeSize}
-                aria-labelledby="eraser-slider"
-                className={classes.eraserSlider}
-              />
-            </div>
-            <Button
-              size="small"
-              color="primary"
-              variant="outlined"
-              onClick={onClearClick}
-              className={classes.clearBoard}
-            >
-              Clear Board
-            </Button>
+            {renderEraserOptions()}
           </div>
           <div>
             <Typography>Shapes</Typography>
-            <div>
-              <IconButton
-                aria-label="menu"
-                classes={{ root: classes.shapeButton }}
-              >
-                <div className={classes.shapeWrapper}>
-                  <div className={classes.rectangle} />
-                </div>
-              </IconButton>
-              <IconButton
-                aria-label="menu"
-                classes={{ root: classes.shapeButton }}
-              >
-                <div className={classes.shapeWrapper}>
-                  <div className={classes.circle} />
-                </div>
-              </IconButton>
-            </div>
+            {renderShapes()}
           </div>
         </div>
       </Drawer>
