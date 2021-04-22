@@ -2,7 +2,7 @@ import clsx from "clsx";
 import useStyles from "./style";
 import { useState, useEffect } from "react";
 import { SETTINGS } from "../appsettings";
-import { Menu as MuiMenu } from "@material-ui/icons";
+import { Menu as MuiMenu, Gesture } from "@material-ui/icons";
 import SvgIcon from "@material-ui/core/SvgIcon";
 import {
   IconButton,
@@ -11,21 +11,22 @@ import {
   Slider,
   Button,
   Typography,
+  Tooltip,
 } from "@material-ui/core";
 
 const Menu = (props) => {
   const classes = useStyles();
   const { onOptionChange, onThemeToggle, isDarkMode, onClearClick } = props;
   const eraserDefaultSize = 5;
-  const colors = isDarkMode ? SETTINGS.COLORS.DARK : SETTINGS.COLORS.LIGHT;
+  const { COLORS, SHAPES, BRUSHES } = SETTINGS;
+  const colors = isDarkMode ? COLORS.DARK : COLORS.LIGHT;
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [selectedColor, setSelectedColor] = useState(colors[0]);
+  const [selectedShape, setSelectedShape] = useState(SHAPES.RANDOM_DRAW);
   const [eraserSelected, setEraserSelected] = useState(false);
   const [eraserSize, setEraserSize] = useState(eraserDefaultSize);
-  const [selectedBrushSize, setSelectedBrushSize] = useState(
-    SETTINGS.BRUSHES[0]
-  );
+  const [selectedBrushSize, setSelectedBrushSize] = useState(BRUSHES[0]);
 
   useEffect(() => {
     if (colors.indexOf(selectedColor) === -1) {
@@ -39,8 +40,9 @@ const Menu = (props) => {
       onOptionChange({
         color: selectedColor,
         brushSize: selectedBrushSize,
-        eraserSize: eraserSize,
-        eraserSelected: eraserSelected,
+        eraserSize,
+        eraserSelected,
+        selectedShape,
       });
     }
   }, [
@@ -69,6 +71,14 @@ const Menu = (props) => {
     setEraserSelected((s) => !s);
   };
 
+  const onShapeClick = (shape) => {
+    setSelectedShape(shape);
+  };
+
+  const onEraserChangeSize = (e, value) => {
+    setEraserSize(value);
+  };
+
   const EraserIcon = () => {
     return (
       <SvgIcon>
@@ -90,10 +100,6 @@ const Menu = (props) => {
         />
       </IconButton>
     );
-  };
-
-  const onEraserChangeSize = (e, value) => {
-    setEraserSize(value);
   };
 
   const renderColorPalettes = (colors) => {
@@ -120,30 +126,45 @@ const Menu = (props) => {
   const renderShapes = () => {
     return (
       <div className={classes.shapeRoot}>
-        <div className={classes.shapeWrapper}>
+        <Tooltip title="Random draw" arrow>
           <div
-            className={classes.rectangleShape}
-            style={{ backgroundColor: selectedColor }}
-          />
-        </div>
-        <div className={classes.shapeWrapper}>
+            onClick={() => onShapeClick(SHAPES.RANDOM_DRAW)}
+            className={clsx(
+              classes.shapeWrapper,
+              selectedShape === SHAPES.RANDOM_DRAW && classes.shapeSelected
+            )}
+          >
+            <Gesture style={{ fill: selectedColor }} />
+          </div>
+        </Tooltip>
+        <Tooltip title="Rectangle" arrow>
           <div
-            className={classes.rectangleShape}
-            style={{ border: `1px solid ${selectedColor}` }}
-          />
-        </div>
-        <div className={classes.shapeWrapper}>
+            onClick={() => onShapeClick(SHAPES.RECT_OUTLINE)}
+            className={clsx(
+              classes.shapeWrapper,
+              selectedShape === SHAPES.RECT_OUTLINE && classes.shapeSelected
+            )}
+          >
+            <div
+              className={classes.rectangleShape}
+              style={{ border: `1px solid ${selectedColor}` }}
+            />
+          </div>
+        </Tooltip>
+        <Tooltip title="Circle" arrow>
           <div
-            className={classes.circleShape}
-            style={{ backgroundColor: selectedColor }}
-          />
-        </div>
-        <div className={classes.shapeWrapper}>
-          <div
-            className={classes.circleShape}
-            style={{ border: `1px solid ${selectedColor}` }}
-          />
-        </div>
+            onClick={() => onShapeClick(SHAPES.CIRCLE_OUTLINE)}
+            className={clsx(
+              classes.shapeWrapper,
+              selectedShape === SHAPES.CIRCLE_OUTLINE && classes.shapeSelected
+            )}
+          >
+            <div
+              className={classes.circleShape}
+              style={{ border: `1px solid ${selectedColor}` }}
+            />
+          </div>
+        </Tooltip>
       </div>
     );
   };
@@ -206,10 +227,10 @@ const Menu = (props) => {
           <div>
             <Typography>Brush size</Typography>
             <div className={classes.brushHolder}>
-              {renderBrush(classes.diaSmall, SETTINGS.BRUSHES[0])}
-              {renderBrush(classes.diaMedium, SETTINGS.BRUSHES[1])}
-              {renderBrush(classes.diaLarge, SETTINGS.BRUSHES[2])}
-              {renderBrush(classes.diaXLarge, SETTINGS.BRUSHES[3])}
+              {renderBrush(classes.diaSmall, BRUSHES[0])}
+              {renderBrush(classes.diaMedium, BRUSHES[1])}
+              {renderBrush(classes.diaLarge, BRUSHES[2])}
+              {renderBrush(classes.diaXLarge, BRUSHES[3])}
             </div>
           </div>
           <div>

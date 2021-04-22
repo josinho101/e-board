@@ -22,6 +22,11 @@ export const darkTheme = createMuiTheme({
         },
       },
     },
+    MuiTooltip: {
+      tooltip: {
+        fontSize: "1em",
+      },
+    },
   },
 });
 
@@ -42,6 +47,11 @@ export const lightTheme = createMuiTheme({
         body: {
           overflow: "hidden",
         },
+      },
+    },
+    MuiTooltip: {
+      tooltip: {
+        fontSize: "1em",
       },
     },
   },

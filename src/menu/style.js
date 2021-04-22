@@ -81,6 +81,9 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: theme.selection.hover,
     },
   },
+  shapeSelected: {
+    backgroundColor: theme.selection.hover,
+  },
   rectangleShape: {
     height: 20,
     width: 30,
@@ -92,7 +95,7 @@ const useStyles = makeStyles((theme) => ({
   },
   shapeRoot: {
     display: "flex",
-    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(1),
   },
 }));
 
