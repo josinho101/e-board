@@ -19,6 +19,7 @@ const App = () => {
     if (
       drawOptions.color !== options.color ||
       drawOptions.brushSize !== options.brushSize ||
+      drawOptions.selectedShape !== options.selectedShape ||
       drawOptions.eraserSelected !== options.eraserSelected
     ) {
       setDrawOptions(options);

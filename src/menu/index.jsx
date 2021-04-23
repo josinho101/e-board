@@ -40,9 +40,9 @@ const Menu = (props) => {
       onOptionChange({
         color: selectedColor,
         brushSize: selectedBrushSize,
-        eraserSize,
-        eraserSelected,
-        selectedShape,
+        eraserSize: eraserSize,
+        eraserSelected: eraserSelected,
+        selectedShape: selectedShape,
       });
     }
   }, [
@@ -51,6 +51,7 @@ const Menu = (props) => {
     onOptionChange,
     eraserSize,
     eraserSelected,
+    selectedShape,
   ]);
 
   const toggleDrawer = () => {
