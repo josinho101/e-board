@@ -1,22 +1,17 @@
-import Cursor from "../cursor";
 import useStyles from "./style";
 import Paper from "@material-ui/core/Paper";
-import { useEffect, useRef, useState } from "react";
-import { SETTINGS } from "../appsettings";
+import { useEffect, useRef } from "react";
 
 const Board = (props) => {
   const classes = useStyles();
   const { options, lastCleared } = props;
-  const { SHAPES } = SETTINGS;
 
   const canvas = useRef();
   const rootRef = useRef();
   const context = useRef();
+  const doDraw = useRef(false);
   const mouse = useRef({ x: 0, y: 0 });
   const drawStart = useRef({ x: 0, y: 0 });
-  const doDraw = useRef(false);
-  const [showCursor, setShowCursor] = useState(true);
-  const [shapes, setShapes] = useState([]);
 
   useEffect(() => {
     canvas.current.width = window.innerWidth;
@@ -46,51 +41,7 @@ const Board = (props) => {
         const size = options.eraserSize;
         context.current.clearRect(mouse.current.x, mouse.current.y, size, size);
       } else {
-        drawShape(options.selectedShape, offsetX, offsetY);
-      }
-    }
-  };
-
-  const drawShape = (shape, lastX, lastY) => {
-    switch (shape) {
-      case SHAPES.RANDOM_DRAW:
-        context.current.lineTo(lastX, lastY);
-        context.current.stroke();
-        break;
-      case SHAPES.RECT_OUTLINE:
-        const width = lastX - drawStart.current.x;
-        const height = lastY - drawStart.current.y;
-        const rect = renderRect();
-        setShapes(rect);
-        break;
-      case SHAPES.CIRCLE_OUTLINE:
-        break;
-    }
-  };
-
-  const renderRect = () => {
-    return (
-      <div
-        style={{
-          width: 20,
-          height: 20,
-          left: 50,
-          top: 50,
-          position: "absolute",
-          border: "1px solid white",
-        }}
-      ></div>
-    );
-  };
-
-  const onCursorMove = (x, y) => {
-    mouse.current = { x, y };
-    if (doDraw.current) {
-      if (options.eraserSelected) {
-        const size = options.eraserSize;
-        context.current.clearRect(mouse.current.x, mouse.current.y, size, size);
-      } else {
-        context.current.lineTo(mouse.current.x, mouse.current.y);
+        context.current.lineTo(offsetX, offsetY);
         context.current.stroke();
       }
     }
@@ -112,13 +63,6 @@ const Board = (props) => {
 
   return (
     <Paper ref={rootRef} classes={{ root: classes.wrapper }}>
-      {/* <Cursor
-        color={options.color}
-        onCursorMove={onCursorMove}
-        onCursorMouseUp={onMouseUp}
-        onCursorMouseDown={onMouseDown}
-      /> */}
-      {shapes}
       <canvas
         ref={canvas}
         onMouseOut={onMouseUp}

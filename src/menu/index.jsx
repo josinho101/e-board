@@ -2,7 +2,7 @@ import clsx from "clsx";
 import useStyles from "./style";
 import { useState, useEffect } from "react";
 import { SETTINGS } from "../appsettings";
-import { Menu as MuiMenu, Gesture } from "@material-ui/icons";
+import { Menu as MuiMenu } from "@material-ui/icons";
 import SvgIcon from "@material-ui/core/SvgIcon";
 import {
   IconButton,
@@ -11,19 +11,17 @@ import {
   Slider,
   Button,
   Typography,
-  Tooltip,
 } from "@material-ui/core";
 
 const Menu = (props) => {
   const classes = useStyles();
   const { onOptionChange, onThemeToggle, isDarkMode, onClearClick } = props;
   const eraserDefaultSize = 5;
-  const { COLORS, SHAPES, BRUSHES } = SETTINGS;
+  const { COLORS, BRUSHES } = SETTINGS;
   const colors = isDarkMode ? COLORS.DARK : COLORS.LIGHT;
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [selectedColor, setSelectedColor] = useState(colors[0]);
-  const [selectedShape, setSelectedShape] = useState(SHAPES.RANDOM_DRAW);
   const [eraserSelected, setEraserSelected] = useState(false);
   const [eraserSize, setEraserSize] = useState(eraserDefaultSize);
   const [selectedBrushSize, setSelectedBrushSize] = useState(BRUSHES[0]);
@@ -42,7 +40,6 @@ const Menu = (props) => {
         brushSize: selectedBrushSize,
         eraserSize: eraserSize,
         eraserSelected: eraserSelected,
-        selectedShape: selectedShape,
       });
     }
   }, [
@@ -51,7 +48,6 @@ const Menu = (props) => {
     onOptionChange,
     eraserSize,
     eraserSelected,
-    selectedShape,
   ]);
 
   const toggleDrawer = () => {
@@ -70,10 +66,6 @@ const Menu = (props) => {
 
   const onEraserClick = () => {
     setEraserSelected((s) => !s);
-  };
-
-  const onShapeClick = (shape) => {
-    setSelectedShape(shape);
   };
 
   const onEraserChangeSize = (e, value) => {
@@ -122,52 +114,6 @@ const Menu = (props) => {
         </IconButton>
       );
     });
-  };
-
-  const renderShapes = () => {
-    return (
-      <div className={classes.shapeRoot}>
-        <Tooltip title="Random draw" arrow>
-          <div
-            onClick={() => onShapeClick(SHAPES.RANDOM_DRAW)}
-            className={clsx(
-              classes.shapeWrapper,
-              selectedShape === SHAPES.RANDOM_DRAW && classes.shapeSelected
-            )}
-          >
-            <Gesture style={{ fill: selectedColor }} />
-          </div>
-        </Tooltip>
-        <Tooltip title="Rectangle" arrow>
-          <div
-            onClick={() => onShapeClick(SHAPES.RECT_OUTLINE)}
-            className={clsx(
-              classes.shapeWrapper,
-              selectedShape === SHAPES.RECT_OUTLINE && classes.shapeSelected
-            )}
-          >
-            <div
-              className={classes.rectangleShape}
-              style={{ border: `1px solid ${selectedColor}` }}
-            />
-          </div>
-        </Tooltip>
-        <Tooltip title="Circle" arrow>
-          <div
-            onClick={() => onShapeClick(SHAPES.CIRCLE_OUTLINE)}
-            className={clsx(
-              classes.shapeWrapper,
-              selectedShape === SHAPES.CIRCLE_OUTLINE && classes.shapeSelected
-            )}
-          >
-            <div
-              className={classes.circleShape}
-              style={{ border: `1px solid ${selectedColor}` }}
-            />
-          </div>
-        </Tooltip>
-      </div>
-    );
   };
 
   const renderEraserOptions = () => {
@@ -237,10 +183,6 @@ const Menu = (props) => {
           <div>
             <Typography>Eraser</Typography>
             {renderEraserOptions()}
-          </div>
-          <div>
-            <Typography>Shapes</Typography>
-            {renderShapes()}
           </div>
         </div>
       </Drawer>
